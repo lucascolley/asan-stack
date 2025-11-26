@@ -1,0 +1,54 @@
+context:
+  version: "3.14.0"
+  minor_version: "3.14"
+
+package:
+  name: python-asan
+  version: ${{ version }}
+
+source:
+  - git: https://github.com/python/cpython
+    tag: v${{ version }}
+
+build:
+  number: 0
+  files:
+    exclude:
+      - "*.o"
+  script:
+    file: build.sh
+    env:
+      MINOR_VERSION: ${{ minor_version }}
+      PYTHON_ASAN: "1"
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
+    - make
+    - libtool
+    - pkg-config
+    # configure script looks for llvm-ar for lto
+    - clang-18
+    - llvm-tools-18
+
+  host:
+    - bzip2
+    - sqlite
+    - liblzma-devel
+    - zlib
+    - openssl
+    - readline
+    - tk
+    # These two are just to get the headers needed for tk.h, but is unused
+    - xorg-libx11
+    - xorg-xorgproto
+    - ncurses
+    - libffi
+    - libmpdec-devel
+    - expat
+
+about:
+  homepage: https://www.python.org/
+  license: Python-2.0
+  license_file: LICENSE
