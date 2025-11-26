@@ -4,7 +4,7 @@ platforms = ["osx-arm64"]
 preview = ["pixi-build"]
 
 [package]
-name = "numpy-asan"
+name = "numpy"
 version = "2.3.5"
 license = "BSD-3-Clause"
 license-file = "LICENSE.txt"
@@ -25,7 +25,7 @@ env.ASAN_OPTIONS = "detect_leaks=0:symbolize=1:strict_init_order=true:allocator_
 extra-args = ["-Csetup-args=-Db_sanitize=address", "-Csetup-args=-Dbuildtype=debug"] 
 
 [package.host-dependencies]
-python-asan = { path = "../cpython" }
+python = { path = "../cpython" }
 meson-python = "*"
 cython = "*"
 uv = "*"
